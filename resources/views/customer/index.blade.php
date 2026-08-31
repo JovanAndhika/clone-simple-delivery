@@ -185,7 +185,7 @@
                 </div>
                 <div class="modal-body">
                     <div
-                        style="    
+                        style="
                         position: relative;
                         width: 100%;
                         padding-top: 80%;
@@ -266,7 +266,7 @@
                 var modalBody = modalFotoBarang.querySelector('.modal-body');
 
                 // Set the src attribute of the img tag
-                modalBody.querySelector('img').src = `{{ asset('storage/` + fotoSrc + `') }}`;
+                modalBody.querySelector('img').src = `{{ asset('uploads/` + fotoSrc + `') }}`;
             });
         });
 

@@ -50,7 +50,7 @@
         @foreach ($barang as $item)
         <div class="col-10 col-md-6">
             <div class="card shadow">
-                <img src="@if($item->foto == null) https://source.unsplash.com/random/{{ rand(1, 100) }} @else {{ asset('storage/'.$item->foto) }} @endif" class="card-img-top" style="height: 150px; object-fit: cover;">
+                <img src="@if($item->foto == null) https://source.unsplash.com/random/{{ rand(1, 100) }} @else {{ asset('uploads/'.$item->foto) }} @endif" class="card-img-top" style="height: 150px; object-fit: cover;">
                 <div class="card-body">
                     <h5 class="card-title text-center">{{ $item->nama }}</h5>
                     <p class="card-text">

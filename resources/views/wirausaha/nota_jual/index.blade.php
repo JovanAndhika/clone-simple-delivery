@@ -116,7 +116,7 @@
                 var modalBody = modalFotoBarang.querySelector('.modal-body');
 
                 // Set the src attribute of the img tag
-                modalBody.querySelector('img').src = `{{ asset('storage/` + fotoSrc + `') }}`;
+                modalBody.querySelector('img').src = `{{ asset('uploads/` + fotoSrc + `') }}`;
             });
         });
 

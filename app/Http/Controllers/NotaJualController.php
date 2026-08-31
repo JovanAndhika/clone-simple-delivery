@@ -8,6 +8,7 @@ use App\Models\NotaJual;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreNotaJualRequest;
 use App\Http\Requests\UpdateNotaJualRequest;
+use Illuminate\Support\Facades\Storage;
 
 class NotaJualController extends Controller
 {
@@ -48,40 +49,33 @@ class NotaJualController extends Controller
             'fotoBarang' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        // Handle the image file upload
+        // Handle the image file upload menggunakan disk 'custom_public'
         if ($request->hasFile('fotoBarang')) {
-            $imagePath = $request->file('fotoBarang')->store('foto_barang', 'public');
+            // Tersimpan di: /public_html/simpledelivery/uploads/foto_barang/
+            $imagePath = $request->file('fotoBarang')->store('foto_barang', 'custom_public');
             $validatedData['fotoBarang'] = $imagePath;
         }
-        $validatedData['customer_id'] = auth()->guard('customer')->id();
 
-        // dd($validatedData);
+        $customerId = auth()->guard('customer')->id();
 
-        // Create the object with the validated data
+        // Create object NotaJual
         $notaJual = NotaJual::create([
             'nama' => $validatedData['namaBarang'],
             'harga' => $validatedData['hargaJual'],
             'foto' => $validatedData['fotoBarang'],
             'alamat' => $validatedData['alamatAmbil'],
-            'customer_id' => $validatedData['customer_id'],
+            'customer_id' => $customerId,
         ]);
 
+        // Ambil nama customer yang sedang login
+        $customer = auth()->guard('customer')->user();
+        $namaCustomer = $customer ? $customer->name : null;
 
-        // Create Tugas bagian Jovan
-        $id_nota = NotaJual::select('id')
-        ->where('nama', $validatedData['namaBarang'])
-        ->where('customer_id', $validatedData['customer_id'])
-        ->orderByDesc('created_at')
-        ->limit(1)
-        ->value('id');
-        $nama_customer = Customer::select('name')
-        ->where('id', auth()->guard('customer')->id())
-        ->limit(1)
-        ->value('name');
-        $create_tugas = Tugas::create([
+        // Buat data Tugas menggunakan ID langsung dari objek $notaJual
+        Tugas::create([
             'jenis_tugas' => 'Penjemputan',
-            'nota_jual_id' => $id_nota,
-            'nama_penerima' => $nama_customer,
+            'nota_jual_id' => $notaJual->id,
+            'nama_penerima' => $namaCustomer,
             'status' => 'belum_diambil'
         ]);
 
@@ -122,6 +116,7 @@ class NotaJualController extends Controller
      */
     public function update(UpdateNotaJualRequest $request, NotaJual $notaJual)
     {
+        //
     }
 
     /**
@@ -129,6 +124,13 @@ class NotaJualController extends Controller
      */
     public function destroy(NotaJual $notaJual)
     {
-        //
+        // Hapus file foto dari uploads jika data dihapus
+        if ($notaJual->foto && Storage::disk('custom_public')->exists($notaJual->foto)) {
+            Storage::disk('custom_public')->delete($notaJual->foto);
+        }
+
+        $notaJual->delete();
+
+        return back()->with('success', 'Nota jual berhasil dihapus!');
     }
 }

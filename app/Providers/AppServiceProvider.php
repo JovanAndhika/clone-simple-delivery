@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -12,7 +13,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind('path.public', function () {
+            return realpath(base_path('../../public_html/simpledelivery'))
+                ?: base_path('../../public_html/simpledelivery');
+        });
     }
 
     /**
@@ -21,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // bootstrap pagination
-        \Illuminate\Pagination\Paginator::useBootstrap();
+        Paginator::useBootstrap();
         Schema::defaultStringLength(150);
     }
 }
