@@ -17,16 +17,10 @@
                 <a href="{{ route('wirausaha.offer') }}"><i class="bi bi-box"></i>Offer Barang</a>
             </li>
             <li>
-                <a href="#"><i class="bi bi-chat-dots-fill"></i>Chat</a>
+                <a href="{{ route('kurir.index') }}"><i class="bi bi-door-closed-fill"></i>Login Kurir</a>
             </li>
             <li>
-                <a href="#"><i class="bi bi-headset"></i>Bantuan</a>
-            </li>
-            <li>
-                <a href="#"><i class="bi bi-gear-fill"></i>Pengaturan</a>
-            </li>
-            <li>
-                <a href="#"><i class="bi bi-door-closed-fill"></i>Logout</a>
+                <a href="{{ route('customer.index') }}"><i class="bi bi-door-closed-fill"></i>Login Customer</a>
             </li>
         </ul>
     </nav>

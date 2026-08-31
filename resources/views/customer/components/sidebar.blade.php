@@ -20,7 +20,10 @@
                 <a href="{{ route('customer.history') }}"><i class="bi bi-file-earmark-fill"></i>History</a>
             </li>
             <li>
-                <a href="#"><i class="bi bi-door-closed-fill"></i>Logout</a>
+                <a href="{{ route('kurir.index') }}"><i class="bi bi-door-closed-fill"></i>Login Kurir</a>
+            </li>
+            <li>
+                <a href="{{ route('wirausaha.index') }}"><i class="bi bi-door-closed-fill"></i>Login Wirausaha</a>
             </li>
         </ul>
     </nav>
