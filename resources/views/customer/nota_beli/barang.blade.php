@@ -154,7 +154,7 @@
                 // console.log(foto);
 
             } else {
-                fotoModal.src = 'storage/' + foto;
+                fotoModal.src = 'uploads/' + foto;
             }
             deskripsiModal.textContent = detail;
 

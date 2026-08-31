@@ -34,7 +34,7 @@ if (modalBeli) {
 
         }
         else {
-            fotoModal.src = 'storage/'+foto;
+            fotoModal.src = 'uploads/'+foto;
         }
         deskripsiModal.textContent = detail;
 

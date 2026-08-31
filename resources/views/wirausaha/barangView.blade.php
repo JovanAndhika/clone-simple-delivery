@@ -142,8 +142,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    
-                    <div style="    
+
+                    <div style="
                         position: relative;
                         width: 100%;
                         padding-top: 80%;
@@ -264,7 +264,7 @@
                     console.error('Modal not found');
                     return;
                 }
-                
+
                 let source = $(this).attr("data-foto");
                 console.log(source);
 
@@ -273,10 +273,10 @@
                     console.log("tidak ada");
                 }
                 else {
-                    source ='/storage/'+source;
+                    source ='/uploads/'+source;
                     console.log("ada");
                 }
-                
+
                 modal.find('#foto').attr('src', source);
                 modal.find('#detail').text($(this).attr("data-detail"));
             });
